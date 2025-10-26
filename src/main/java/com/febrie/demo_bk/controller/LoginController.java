@@ -11,7 +11,7 @@ import org.springframework.web.util.HtmlUtils;
 @Controller
 public class LoginController {
     @Autowired
-    UserService userService;
+    private UserService userService;
 
     //跨域支持
     @CrossOrigin
@@ -22,6 +22,7 @@ public class LoginController {
     public Result login(@RequestBody User requestUser) {
         String userName = requestUser.getUserName();
         //System.out.println(userName);
+        //转义防xss攻击
         userName = HtmlUtils.htmlEscape(userName);
         //System.out.println(userName);
         User user = userService.get(userName,requestUser.getPassword());
@@ -34,3 +35,4 @@ public class LoginController {
         }
     }
 }
+
