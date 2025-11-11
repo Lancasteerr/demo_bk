@@ -1,0 +1,100 @@
+package com.febrie.demo_bk.pojo;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import jakarta.persistence.*;
+
+import java.sql.Date;
+import java.util.Objects;
+
+@Entity
+@Table(name = "jotter_article")
+@JsonIgnoreProperties({"handler","hibernateLazyInitializer"})
+
+public class BlogArticle {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private int id;
+
+    private String articleTitle;
+
+    private String articleContentHtml;
+
+    private String articleContentMd;
+
+    private String articleAbstract;
+
+    private Date articleDate;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Date getArticleDate() {
+        return articleDate;
+    }
+
+    public void setArticleDate(Date articleDate) {
+        this.articleDate = articleDate;
+    }
+
+    public String getArticleAbstract() {
+        return articleAbstract;
+    }
+
+    public void setArticleAbstract(String articleAbstract) {
+        this.articleAbstract = articleAbstract;
+    }
+
+    public String getArticleContentMd() {
+        return articleContentMd;
+    }
+
+    public void setArticleContentMd(String articleContentMd) {
+        this.articleContentMd = articleContentMd;
+    }
+
+    public String getArticleContentHtml() {
+        return articleContentHtml;
+    }
+
+    public void setArticleContentHtml(String articleContentHtml) {
+        this.articleContentHtml = articleContentHtml;
+    }
+
+    public String getArticleTitle() {
+        return articleTitle;
+    }
+
+    public void setArticleTitle(String articleTitle) {
+        this.articleTitle = articleTitle;
+    }
+
+    @Override
+    public String toString() {
+        return "BlogArticle{" +
+                "id=" + id +
+                ", articleTitle='" + articleTitle + '\'' +
+                ", articleContentHtml='" + articleContentHtml + '\'' +
+                ", articleContentMd='" + articleContentMd + '\'' +
+                ", articleAbstract='" + articleAbstract + '\'' +
+                ", articleDate=" + articleDate +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        BlogArticle that = (BlogArticle) o;
+        return id == that.id && Objects.equals(articleTitle, that.articleTitle) && Objects.equals(articleContentHtml, that.articleContentHtml) && Objects.equals(articleContentMd, that.articleContentMd) && Objects.equals(articleAbstract, that.articleAbstract) && Objects.equals(articleDate, that.articleDate);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, articleTitle, articleContentHtml, articleContentMd, articleAbstract, articleDate);
+    }
+}

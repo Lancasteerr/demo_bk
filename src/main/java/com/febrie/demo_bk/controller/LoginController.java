@@ -24,13 +24,12 @@ public class LoginController {
         //System.out.println(userName);
         //转义防xss攻击
         userName = HtmlUtils.htmlEscape(userName);
-        //System.out.println(userName);
-        User user = userService.get(userName,requestUser.getPassword());
-        if(null == user) {
-            String message = "账号密码错误";
-            System.out.println(message);
+
+        User user = userService.getByName(userName);
+        if(null == user){
             return new Result(400);
-        } else {
+        }
+        else{
             return new Result(200);
         }
     }
