@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.time.LocalDateTime;
+
 @Controller
 public class AddArticleController {
     @Autowired
@@ -19,6 +21,7 @@ public class AddArticleController {
     @PostMapping(value = "api/admin/content/article")
     @ResponseBody
     public Result article(@RequestBody BlogArticle blogArticle) {
+        blogArticle.setArticleDate(LocalDateTime.now());
         blogArticleService.addOrUpdate(blogArticle);
         return new Result(200);
     }

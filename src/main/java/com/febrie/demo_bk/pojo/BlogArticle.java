@@ -3,7 +3,7 @@ package com.febrie.demo_bk.pojo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
-import java.sql.Date;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
@@ -24,7 +24,7 @@ public class BlogArticle {
 
     private String articleAbstract;
 
-    private Date articleDate;
+    private LocalDateTime articleDate;
 
     public int getId() {
         return id;
@@ -34,11 +34,11 @@ public class BlogArticle {
         this.id = id;
     }
 
-    public Date getArticleDate() {
+    public LocalDateTime getArticleDate() {
         return articleDate;
     }
 
-    public void setArticleDate(Date articleDate) {
+    public void setArticleDate(LocalDateTime articleDate) {
         this.articleDate = articleDate;
     }
 
