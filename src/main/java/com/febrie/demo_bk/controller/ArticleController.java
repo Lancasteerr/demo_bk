@@ -20,4 +20,11 @@ public class ArticleController {
     public Page<BlogArticle> getArticles(@RequestParam int page,@RequestParam int size){
         return blogArticleService.getArticleList(page - 1,size);
     }
+
+    @CrossOrigin
+
+    @GetMapping("api/article")
+    public BlogArticle getArticleById(@RequestParam int id){
+        return blogArticleService.findById(id);
+    }
 }
