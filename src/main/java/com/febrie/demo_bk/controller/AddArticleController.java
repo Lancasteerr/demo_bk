@@ -5,10 +5,7 @@ import com.febrie.demo_bk.result.Result;
 import com.febrie.demo_bk.service.BlogArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 
@@ -25,4 +22,13 @@ public class AddArticleController {
         blogArticleService.addOrUpdate(blogArticle);
         return new Result(200);
     }
+
+    @CrossOrigin
+    @DeleteMapping(value = "api/admin/content/delarticle/{id}")
+    @ResponseBody
+    public Result delarticel(@PathVariable int id){
+        blogArticleService.delete(id);
+        return new Result(200);
+    }
+
 }
