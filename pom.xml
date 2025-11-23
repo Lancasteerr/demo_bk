@@ -41,38 +41,69 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- spring security -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+
+        <!-- JJWT -->
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-api</artifactId>
+            <version>0.13.0</version>
+        </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-impl</artifactId>
+            <version>0.13.0</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-jackson</artifactId> <!-- or jjwt-gson if Gson is preferred -->
+            <version>0.13.0</version>
+            <scope>runtime</scope>
+        </dependency>
+
         <!-- springboot tomcat 支持 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-tomcat</artifactId>
             <scope>provided</scope>
         </dependency>
+
         <!-- 热部署 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
             <optional>true</optional>
         </dependency>
+
         <!-- jpa-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
+
         <!-- redis -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
+
         <!-- thymeleaf -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
+
         <!-- elastic search -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-elasticsearch</artifactId>
         </dependency>
+
         <!-- 用了 elasticsearch 就要加这么一个，不然要com.sun.jna.Native 错误 -->
         <dependency>
             <groupId>com.sun.jna</groupId>
@@ -86,6 +117,7 @@
             <artifactId>nekohtml</artifactId>
             <version>1.9.22</version>
         </dependency>
+
         <!-- 测试支持 -->
         <dependency>
             <groupId>junit</groupId>
@@ -93,12 +125,14 @@
             <version>4.13.1</version>
             <scope>test</scope>
         </dependency>
+
         <!-- tomcat的支持.-->
         <dependency>
             <groupId>org.apache.tomcat.embed</groupId>
             <artifactId>tomcat-embed-jasper</artifactId>
             <version>10.1.24</version>
         </dependency>
+
         <!-- mysql-->
         <dependency>
             <groupId>mysql</groupId>
@@ -112,18 +146,14 @@
             <artifactId>junit</artifactId>
             <version>4.13.1</version>
         </dependency>
+
         <!-- commons-lang -->
         <dependency>
             <groupId>commons-lang</groupId>
             <artifactId>commons-lang</artifactId>
             <version>20030203.000129</version>
         </dependency>
-        <!-- shiro -->
-        <dependency>
-            <groupId>org.apache.shiro</groupId>
-            <artifactId>shiro-spring</artifactId>
-            <version>2.0.0</version>
-        </dependency>
+
         <!-- hsqldb -->
         <dependency>
             <groupId>org.hsqldb</groupId>

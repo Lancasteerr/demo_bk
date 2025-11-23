@@ -16,14 +16,14 @@ public class ArticleController {
 
     @CrossOrigin
 
-    @GetMapping("api/get_article_list")
+    @GetMapping("api/public/get_article_list")
     public Page<BlogArticle> getArticles(@RequestParam int page,@RequestParam int size){
         return blogArticleService.getArticleList(page - 1,size);
     }
 
     @CrossOrigin
 
-    @GetMapping("api/article")
+    @GetMapping("api/public/article")
     public BlogArticle getArticleById(@RequestParam int id){
         return blogArticleService.findById(id);
     }
