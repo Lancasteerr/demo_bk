@@ -1,5 +1,6 @@
 package com.febrie.demo_bk.controller;
 
+import com.febrie.demo_bk.dto.ArticleDTO;
 import com.febrie.demo_bk.pojo.BlogArticle;
 import com.febrie.demo_bk.service.BlogArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,7 @@ public class ArticleController {
     @CrossOrigin
 
     @GetMapping("api/public/article")
-    public BlogArticle getArticleById(@RequestParam int id){
+    public ArticleDTO getArticleById(@RequestParam int id){
         return blogArticleService.findById(id);
     }
 }

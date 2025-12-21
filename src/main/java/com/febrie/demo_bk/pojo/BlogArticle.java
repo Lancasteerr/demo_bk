@@ -1,6 +1,7 @@
 package com.febrie.demo_bk.pojo;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.febrie.demo_bk.dto.ArticleDTO;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -97,4 +98,33 @@ public class BlogArticle {
     public int hashCode() {
         return Objects.hash(id, articleTitle, articleContentHtml, articleContentMd, articleAbstract, articleDate);
     }
+
+    public static ArticleDTO toDTO(BlogArticle blogArticle){
+        if(blogArticle==null) return null;
+
+        ArticleDTO articleDTO = new ArticleDTO();
+
+        articleDTO.setId(blogArticle.getId());
+        articleDTO.setArticleAbstract(blogArticle.getArticleAbstract());
+        articleDTO.setArticleContentHtml(blogArticle.getArticleContentHtml());
+        articleDTO.setArticleContentMd(blogArticle.getArticleContentMd());
+        articleDTO.setArticleTitle(blogArticle.getArticleTitle());
+        articleDTO.setArticleDate(blogArticle.getArticleDate());
+        return articleDTO;
+    }
+
+    public static BlogArticle toPojo(ArticleDTO articleDTO){
+        if(articleDTO == null) return null;
+
+        BlogArticle blogArticle = new BlogArticle();
+
+        blogArticle.setArticleDate(articleDTO.getArticleDate());
+        blogArticle.setArticleAbstract(articleDTO.getArticleAbstract());
+        blogArticle.setId(articleDTO.getId());
+        blogArticle.setArticleTitle(articleDTO.getArticleTitle());
+        blogArticle.setArticleContentMd(articleDTO.getArticleContentMd());
+        blogArticle.setArticleContentHtml(articleDTO.getArticleContentHtml());
+        return blogArticle;
+    }
+
 }
