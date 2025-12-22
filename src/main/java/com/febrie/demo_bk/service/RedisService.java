@@ -1,7 +1,13 @@
 package com.febrie.demo_bk.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.febrie.demo_bk.dto.ArticleDTO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
@@ -13,6 +19,7 @@ public class RedisService {
     private final RedisTemplate redisTemplate;
     private  final StringRedisTemplate stringRedisTemplate;
 
+    //@Autowired
     public RedisService(RedisTemplate redisTemplate, StringRedisTemplate stringRedisTemplate) {
         this.redisTemplate = redisTemplate;
         this.stringRedisTemplate = stringRedisTemplate;
@@ -44,7 +51,11 @@ public class RedisService {
     @SuppressWarnings("unchecked")
     public <T> T getObject(String key,Class<T> clazz){
         Object object = redisTemplate.opsForValue().get(key);
-        return object==null?null: clazz.cast(object);
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.registerModule(new JavaTimeModule());
+        mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+
+        return object==null?null: mapper.convertValue(object,clazz);
     }
 
     //根据key删除缓存
