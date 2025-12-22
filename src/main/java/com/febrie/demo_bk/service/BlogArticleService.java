@@ -1,5 +1,6 @@
 package com.febrie.demo_bk.service;
 
+import com.febrie.demo_bk.dao.ArticleViewStatDAO;
 import com.febrie.demo_bk.dao.BlogArticleDAO;
 import com.febrie.demo_bk.dto.ArticleDTO;
 import com.febrie.demo_bk.pojo.BlogArticle;
@@ -17,6 +18,8 @@ public class BlogArticleService {
     private BlogArticleDAO blogArticleDAO;
     @Autowired
     private RedisService redisService;
+    @Autowired
+    private ArticleViewStatDAO articleViewStatDAO;
 
     /**
      * 先改数据库，再删Redis
@@ -44,13 +47,17 @@ public class BlogArticleService {
         return cache;
     }
 
+    //删除文章
     public void delete(int id) {
         blogArticleDAO.deleteById(id);
         redisService.delete("blog:article:detail:" + id);
     }
 
+    //获取文章列表
     public Page<BlogArticle> getArticleList(int page,int size) {
         Pageable pageable = PageRequest.of(page,size);
         return blogArticleDAO.findAll(pageable);
     }
+
+
 }
