@@ -3,11 +3,8 @@ package com.febrie.demo_bk.service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.febrie.demo_bk.dto.ArticleDTO;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
@@ -48,7 +45,6 @@ public class RedisService {
     }
 
     //根据key获得缓存
-    @SuppressWarnings("unchecked")
     public <T> T getObject(String key,Class<T> clazz){
         Object object = redisTemplate.opsForValue().get(key);
         ObjectMapper mapper = new ObjectMapper();
@@ -66,6 +62,11 @@ public class RedisService {
     //根据keys集合批量删除缓存
     public Long delete(Set<String> keys){
         return redisTemplate.delete(keys);
+    }
+
+    //指定value自增
+    public void valueIncrease(String key){
+        redisTemplate.opsForValue().increment(key);
     }
 
     /**

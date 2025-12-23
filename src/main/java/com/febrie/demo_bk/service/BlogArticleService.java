@@ -4,12 +4,10 @@ import com.febrie.demo_bk.dao.ArticleViewStatDAO;
 import com.febrie.demo_bk.dao.BlogArticleDAO;
 import com.febrie.demo_bk.dto.ArticleDTO;
 import com.febrie.demo_bk.pojo.BlogArticle;
+import com.febrie.demo_bk.result.PageResult;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.concurrent.TimeUnit;
@@ -29,6 +27,7 @@ public class BlogArticleService {
     public void addOrUpdate(ArticleDTO articleDTO) {
         blogArticleDAO.save(BlogArticle.toPojo(articleDTO));
         redisService.delete("blog:article:detail:"+articleDTO.getId());
+        increasePageVersion();
     }
 
     /**
@@ -53,12 +52,41 @@ public class BlogArticleService {
     public void delete(int id) {
         blogArticleDAO.deleteById(id);
         redisService.delete("blog:article:detail:" + id);
-    }
-    //获取文章列表
-    public Page<BlogArticle> getArticleList(int page,int size) {
-        Pageable pageable = PageRequest.of(page,size);
-        return blogArticleDAO.findAll(pageable);
+        //所有页面缓存失效
+        increasePageVersion();
     }
 
+    //缓存文章列表
+    private static final String ARTICLE_PAGE_VERSION_KEY = "blog:article:page:version";
+
+    //获取分页版本号
+    private Long getArticlePageVersion(){
+        Long version = redisService.getObject(ARTICLE_PAGE_VERSION_KEY,long.class);
+        if(version==null){
+            redisService.setObject(ARTICLE_PAGE_VERSION_KEY,1L);
+            return 1L;
+        }
+        return version;
+    }
+
+    public PageResult getArticleList(int page, int size) {
+        Long version = getArticlePageVersion();
+        String cacheKey = String.format("blog:article:page:%d:%d:%d",version,page,size);
+        PageResult pageResult = redisService.getObject(cacheKey,PageResult.class);
+        if(pageResult==null){
+            Pageable pageable = PageRequest.of(page,size);
+            pageResult = PageResult.from(blogArticleDAO.findAll(pageable));
+            //加入新缓存
+            redisService.setObject(cacheKey,pageResult,1,TimeUnit.DAYS);
+
+            return pageResult;
+        }
+        return pageResult;
+    }
+
+    //版本号自增
+    private void increasePageVersion(){
+        redisService.valueIncrease(ARTICLE_PAGE_VERSION_KEY);
+    }
 
 }
