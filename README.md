@@ -92,7 +92,7 @@ java -jar target/blog-backend.jar
 -  API documentation (Swagger / OpenAPI)
 -  Rate limiting
 
-[Frontend]: https://github.com/Lancasteerr/Easy_blog_frontend
+[Frontend](https://github.com/Lancasteerr/Easy_blog_frontend)
 
 ### License
 
@@ -187,7 +187,7 @@ java -jar target/blog-backend.jar
 -  Swagger / OpenAPI 文档
 -  接口访问限流
 
-[前端仓库]: https://github.com/Lancasteerr/Easy_blog_frontend
+[前端仓库](https://github.com/Lancasteerr/Easy_blog_frontend)
 
 ### License
 
