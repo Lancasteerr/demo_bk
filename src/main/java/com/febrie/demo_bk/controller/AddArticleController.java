@@ -1,5 +1,6 @@
 package com.febrie.demo_bk.controller;
 
+import com.febrie.demo_bk.annotation.OperationLoger;
 import com.febrie.demo_bk.dto.ArticleDTO;
 import com.febrie.demo_bk.result.Result;
 import com.febrie.demo_bk.service.BlogArticleService;
@@ -17,6 +18,7 @@ public class AddArticleController {
     @CrossOrigin
     @PostMapping(value = "api/admin/content/article")
     @ResponseBody
+    @OperationLoger(module = "文章",type = "增加或修改")
     public Result article(@RequestBody ArticleDTO articleDTO) {
         articleDTO.setArticleDate(LocalDateTime.now());
         blogArticleService.addOrUpdate(articleDTO);
@@ -26,6 +28,7 @@ public class AddArticleController {
     @CrossOrigin
     @DeleteMapping(value = "api/admin/content/delarticle/{id}")
     @ResponseBody
+    @OperationLoger(module = "文章",type = "删除")
     public Result delarticel(@PathVariable int id){
         blogArticleService.delete(id);
         return new Result(200);

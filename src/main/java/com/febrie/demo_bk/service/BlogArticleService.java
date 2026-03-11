@@ -1,5 +1,6 @@
 package com.febrie.demo_bk.service;
 
+import com.febrie.demo_bk.annotation.OperationLoger;
 import com.febrie.demo_bk.dao.ArticleViewStatDAO;
 import com.febrie.demo_bk.dao.BlogArticleDAO;
 import com.febrie.demo_bk.dto.ArticleDTO;
@@ -24,6 +25,7 @@ public class BlogArticleService {
     /**
      * 先改数据库，再删Redis
      */
+    //@OperationLoger(module = "文章",type = "增加或修改")
     public void addOrUpdate(ArticleDTO articleDTO) {
         blogArticleDAO.save(BlogArticle.toPojo(articleDTO));
         redisService.delete("blog:article:detail:"+articleDTO.getId());

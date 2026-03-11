@@ -1,5 +1,6 @@
 package com.febrie.demo_bk.controller;
 
+import com.febrie.demo_bk.annotation.OperationLoger;
 import com.febrie.demo_bk.pojo.User;
 import com.febrie.demo_bk.result.Result;
 import com.febrie.demo_bk.service.UserService;
@@ -24,6 +25,7 @@ public class LoginController {
     @PostMapping(value = "api/public/login")
     //返回值为响应，转换为json
     @ResponseBody
+    @OperationLoger(module = "登录")
     public Result login(@RequestBody User requestUser) {
         String userName = requestUser.getUserName();
         String password = requestUser.getPassword();
